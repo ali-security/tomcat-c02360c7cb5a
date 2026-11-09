@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -566,7 +565,7 @@ public class RewriteValve extends ValveBase {
                     chunk.append(REWRITE_DEFAULT_ENCODER.encode(urlStringRewriteEncoded, uriCharset));
                     // Rewriting may have denormalized the URL and added encoded characters
                     // Decode then normalize
-                    String urlStringRewriteDecoded = URLDecoder.decode(urlStringRewriteEncoded, uriCharset.name());
+                    String urlStringRewriteDecoded = UDecoder.URLDecode(urlStringRewriteEncoded, uriCharset);
                     urlStringRewriteDecoded = RequestUtil.normalize(urlStringRewriteDecoded);
                     request.getCoyoteRequest().decodedURI().setChars(MessageBytes.EMPTY_CHAR_ARRAY, 0, 0);
                     chunk = request.getCoyoteRequest().decodedURI().getCharChunk();
